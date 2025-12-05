@@ -12,6 +12,9 @@ function App() {
   const [quizData, setQuizData] = useState(null);
   const [quizResults, setQuizResults] = useState(null);
 
+  // 배포 환경이면 환경변수 사용, 로컬이면 localhost:5000 사용
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   const handleEnterSettings = () => {
     setCurrentPage('settings');
   };
@@ -27,7 +30,7 @@ function App() {
     try {
       setQuizSettings(settings); // 원래 설정은 UI용으로 저장
 
-      const response = await axios.post('http://localhost:5000/api/quiz/generate', settings);
+      const response = await axios.post(`${API_URL}/api/quiz/generate`, settings);
       
       setQuizData(response.data);
       setCurrentPage('quiz');
@@ -46,7 +49,7 @@ function App() {
           serverQuizType = 'meaning';
         }
   
-        const response = await axios.post('http://localhost:5000/api/quiz/validate', {
+        const response = await axios.post(`${API_URL}/api/quiz/validate`, {
           quizType: serverQuizType,
           answers: userAnswers,
         });
