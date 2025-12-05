@@ -315,3 +315,20 @@ body {
 .home-logo-btn:hover {
   transform: scale(1.05); /* 호버 시 살짝 커짐 */
 }
+
+/* 페이지 페이드 인 애니메이션 정의 */
+ @keyframes fadeInEffect {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* 살짝 아래에서 위로 올라오는 효과 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 애니메이션 적용 클래스 */
+.page-transition {
+  animation: fadeInEffect 1s ease-in-out; /* 1초 동안 부드럽게 */
+}

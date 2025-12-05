@@ -77,20 +77,23 @@ function App() {
 
   return (
     <>
-      {/* 1. 메인 페이지일 때 */}
+      {/* 1. 메인 페이지 */}
       {currentPage === 'main' && (
-        <MainPage onStart={handleEnterSettings} />
+        <div key="main" className="page-transition"> {/* div로 감싸서 애니메이션 적용 */}
+           <MainPage onStart={handleEnterSettings} />
+        </div>
       )}
 
-      {/* 2. 메인 페이지가 아닐 때 (설정, 풀이, 결과) */}
+      {/* 2. 그 외 페이지 (설정, 풀이, 결과) */}
       {currentPage !== 'main' && (
         <>
-          {/* (중요) 홈 버튼은 여기에 위치해야 함 (app-container 밖, 조건문 안) */}
+          {/* 홈 버튼 (고정) */}
           <div className="home-logo-btn" onClick={handleGoHome}>
             Yasui Practice
           </div>
 
-          <div className="app-container">
+          {/* 앱 컨테이너에 key={currentPage}를 주어 페이지 변경 시마다 애니메이션 재실행 */}
+          <div key={currentPage} className="app-container page-transition">
             {currentPage === 'settings' && <QuizSettings onQuizStart={handleQuizStart} />}
             {currentPage === 'quiz' && <QuizPage quizData={quizData} onQuizComplete={handleQuizComplete} />}
             {currentPage === 'results' && <QuizResultPage results={quizResults} onRetry={handleRetry} onReset={handleReset} />}
